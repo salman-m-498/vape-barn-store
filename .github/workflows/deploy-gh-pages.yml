@@ -23,6 +23,7 @@ jobs:
       - name: Build (static export)
         run: |
           export NEXT_PUBLIC_EXPORT=1
+          export NEXT_PUBLIC_BASE_PATH=/vape-barn-store
           npm run build
 
       - name: Deploy to gh-pages
