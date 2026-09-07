@@ -5,6 +5,7 @@ const isExport = process.env.NEXT_PUBLIC_EXPORT === "1";
 const nextConfig: NextConfig = {
   output: isExport ? "export" : undefined,
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
+  assetPrefix: isExport ? process.env.NEXT_PUBLIC_BASE_PATH || "" : undefined,
   images: {
     unoptimized: isExport,
   },
