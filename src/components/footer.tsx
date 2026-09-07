@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-3">
               <Image
-                src="/brand/barn_icon.png"
+                src={(process.env.NEXT_PUBLIC_BASE_PATH || "") + "/brand/barn_icon.png"}
                 alt=""
                 aria-hidden
                 width={40}

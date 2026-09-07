@@ -1,12 +1,13 @@
 import Image from "next/image";
 
 export function CloudeMoment() {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
   return (
     <section className="border-b border-navy/14 bg-wool">
       <div className="mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-12">
         <div className="relative flex items-center justify-center px-5 pt-14 sm:px-8 lg:col-span-5 lg:py-24">
           <Image
-            src="/brand/cloude_sitting.png"
+            src={base + "/brand/cloude_sitting.png"}
             alt="Cloude McPuff, chilling while the store gets ready"
             width={512}
             height={512}

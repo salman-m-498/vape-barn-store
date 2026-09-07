@@ -16,6 +16,7 @@ const NAV = [
 export function Header() {
   const { count } = useCart();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   return (
     <>
@@ -23,7 +24,7 @@ export function Header() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3 sm:px-8">
           <Link href="/" className="flex items-center gap-3">
             <Image
-              src="/brand/logo.png"
+              src={base + "/brand/logo.png"}
               alt="Vape Barn"
               width={44}
               height={44}

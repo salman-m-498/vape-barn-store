@@ -5,32 +5,33 @@ const RANGE = [
   {
     category: "Disposables",
     blurb: "No fuss, big flavour.",
-    image: "/banners/Category-Banner-Disposables.png",
+    image: "banners/Category-Banner-Disposables.png",
   },
   {
     category: "E-liquids",
     blurb: "Proper flavour, mixed right.",
-    image: "/banners/banner-flvaors.png",
+    image: "banners/banner-flvaors.png",
     wide: true,
   },
   {
     category: "Pod Devices",
     blurb: "Compact, pocket-ready kits.",
-    image: "/banners/Category-Banner-PodDevices.png",
+    image: "banners/Category-Banner-PodDevices.png",
   },
   {
     category: "Mod Devices",
     blurb: "Gear that keeps up.",
-    image: "/banners/Category-Banner-moddevice.png",
+    image: "banners/Category-Banner-moddevice.png",
   },
   {
     category: "Accessories",
     blurb: "The bits that keep it running.",
-    image: "/banners/Category-Banner-Accessories.png",
+    image: "banners/Category-Banner-Accessories.png",
   },
 ];
 
 export function ProductTeaser() {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
   return (
     <section id="shop" className="border-b border-navy/14">
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
@@ -61,7 +62,7 @@ export function ProductTeaser() {
               }`}
             >
               <Image
-                src={item.image}
+                src={base + "/" + item.image}
                 alt={item.category}
                 width={item.wide ? 930 : 470}
                 height={280}

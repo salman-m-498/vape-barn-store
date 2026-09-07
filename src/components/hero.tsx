@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 export function Hero() {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
   return (
     <section className="relative overflow-hidden border-b border-navy/14">
       <div className="mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-12">
@@ -51,7 +52,7 @@ export function Hero() {
         <div className="relative flex items-end justify-center lg:col-span-5">
           <div className="pointer-events-none absolute bottom-0 right-0 h-3/4 w-px bg-navy/10 lg:h-full" />
           <Image
-            src="/brand/logo.png"
+            src={base + "/brand/logo.png"}
             alt=""
             aria-hidden
             width={200}
@@ -59,7 +60,7 @@ export function Hero() {
             className="pointer-events-none absolute left-1/2 top-6 z-0 h-28 w-28 -translate-x-1/2 opacity-90 sm:h-36 sm:w-36 lg:h-44 lg:w-44"
           />
           <Image
-            src="/brand/cloude_standing.png"
+            src={base + "/brand/cloude_standing.png"}
             alt="Cloude McPuff"
             width={512}
             height={512}

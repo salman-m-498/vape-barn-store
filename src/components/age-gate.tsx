@@ -51,7 +51,7 @@ export function AgeGate() {
       <div className="relative w-full max-w-md overflow-hidden border border-cream/15 bg-cream">
         <div className="flex flex-col items-center px-8 pt-8 text-center">
           <Image
-            src="/brand/cloude_agecheck.png"
+            src={(process.env.NEXT_PUBLIC_BASE_PATH || "") + "/brand/cloude_agecheck.png"}
             alt="Cloude McPuff holding a no under 18 sign"
             width={200}
             height={255}

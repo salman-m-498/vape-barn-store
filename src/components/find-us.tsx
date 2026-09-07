@@ -3,6 +3,7 @@ import { STORE, MAPS_EMBED_URL, MAPS_DIRECTIONS_URL } from "@/lib/store";
 
 export function FindUs() {
   const [hero, ...rest] = STORE.photos;
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   return (
     <section id="find-us" className="border-b border-navy/14">
@@ -27,7 +28,7 @@ export function FindUs() {
         </div>
 
         <Image
-          src={`/store/${hero.src}`}
+          src={base + `/store/${hero.src}`}
           alt={`${STORE.name} store: ${hero.caption}`}
           width={1186}
           height={808}
@@ -104,7 +105,7 @@ export function FindUs() {
               {rest.map((photo) => (
                 <figure key={photo.src} className="overflow-hidden">
                   <Image
-                    src={`/store/${photo.src}`}
+                    src={base + `/store/${photo.src}`}
                     alt={`${STORE.name} store: ${photo.caption}`}
                     width={771}
                     height={1020}
