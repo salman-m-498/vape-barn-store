@@ -27,7 +27,7 @@ export function Hero() {
             <div className="flex shrink-0 flex-col items-start gap-4">
               <a
                 href="#find-us"
-                className="rounded-sm border border-navy/25 px-6 py-3 font-body text-xs font-semibold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-tan/50"
+                className="rounded-sm bg-gold border border-navy/25 px-6 py-3 font-body text-xs font-bold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-tan/50"
               >
                 In the meantime, visit us in store
               </a>
@@ -57,7 +57,7 @@ export function Hero() {
             aria-hidden
             width={200}
             height={200}
-            className="pointer-events-none absolute left-1/2 top-6 z-0 h-28 w-28 -translate-x-1/2 opacity-90 sm:h-36 sm:w-36 lg:h-44 lg:w-44"
+            className="pointer-events-none absolute left-1/2 top-6 z-0 hidden h-28 w-28 -translate-x-1/2 opacity-90 sm:block sm:h-36 sm:w-36 lg:h-44 lg:w-44"
           />
           <Image
             src={base + "/brand/cloude_standing.png"}
