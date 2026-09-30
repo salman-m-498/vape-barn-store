@@ -48,7 +48,7 @@ export function AgeGate() {
       aria-labelledby="agegate-title"
       className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/85 p-5 backdrop-blur-sm"
     >
-      <div className="relative w-full max-w-md overflow-hidden border border-cream/15 bg-cream">
+      <div className="relative w-full max-w-md overflow-hidden border border-cream/15 bg-navy-soft">
         <div className="flex flex-col items-center px-8 pt-8 text-center">
           <Image
             src={(process.env.NEXT_PUBLIC_BASE_PATH || "") + "/brand/cloude_agecheck.png"}
@@ -60,11 +60,11 @@ export function AgeGate() {
           />
           <h2
             id="agegate-title"
-            className="mt-6 font-display text-4xl tracking-brand text-navy"
+            className="mt-6 font-display text-4xl tracking-brand text-cream"
           >
             Are you in?
           </h2>
-          <p className="mt-3 font-body text-sm leading-relaxed text-navy/70">
+          <p className="mt-3 font-body text-sm leading-relaxed text-cream/70">
             The Barn is for adults only. By entering, you confirm you are 18
             years or older and of legal vaping age in your region.
           </p>
@@ -73,13 +73,13 @@ export function AgeGate() {
         <div className="flex flex-col gap-3 px-8 pb-8 pt-6 sm:flex-row">
           <button
             onClick={confirm}
-            className="flex-1 rounded-sm bg-navy px-6 py-3 font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-navy-soft"
+            className="flex-1 rounded-sm bg-gold px-6 py-3 font-body text-xs font-bold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-gold-bright"
           >
             I&rsquo;m 18 or over
           </button>
           <button
             onClick={deny}
-            className="flex-1 rounded-sm border border-navy/25 px-6 py-3 font-body text-xs font-semibold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-tan/50"
+            className="flex-1 rounded-sm border border-cream/25 px-6 py-3 font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-cream/10"
           >
             Exit
           </button>

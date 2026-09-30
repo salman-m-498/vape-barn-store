@@ -18,7 +18,7 @@ const BRANDS = [
 
 function Brand({ name }: { name: string }) {
   return (
-    <span className="font-display text-2xl tracking-brand text-navy/90 uppercase">
+    <span className="font-display text-2xl tracking-brand text-cream/80 uppercase">
       {name}
     </span>
   );
@@ -30,10 +30,10 @@ export function BrandsTicker() {
   return (
     <section
       aria-label="Brands we stock"
-      className="overflow-hidden border-b border-navy/14 bg-wool"
+      className="overflow-hidden border-b border-cream/10 bg-navy"
     >
-      <div className="flex items-center border-b border-navy/10 py-3">
-        <span className="shrink-0 px-5 font-body text-[10px] font-semibold uppercase tracking-[0.18em] text-gold sm:px-8">
+      <div className="flex items-center py-3">
+        <span className="shrink-0 px-5 font-body text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-bright sm:px-8">
           Brands we stock
         </span>
         <div className="brands-ticker-mask relative flex-1 overflow-hidden">

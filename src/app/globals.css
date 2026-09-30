@@ -9,6 +9,7 @@
   --color-tan: #e8e1cf;
   --color-gold: #ab7a2b;
   --color-gold-soft: #c5a170;
+  --color-gold-bright: #d4a64a;
   --color-brown: #4a3b2a;
 
   --font-display: var(--font-bebas), sans-serif;
@@ -73,5 +74,68 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .brands-ticker-track {
     animation: none;
+  }
+}
+
+/* Subtle barn plank texture for navy sections */
+.barn-planks {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.035) 0,
+    rgba(255, 255, 255, 0.035) 1px,
+    transparent 1px,
+    transparent 96px
+  );
+}
+
+/* Subtle barn-door X-brace crosshatch */
+.barn-xbrace {
+  background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.028) 0,
+      rgba(255, 255, 255, 0.028) 1px,
+      transparent 1px,
+      transparent 22px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.028) 0,
+      rgba(255, 255, 255, 0.028) 1px,
+      transparent 1px,
+      transparent 22px
+    );
+}
+
+/* Gold hairline divider */
+.gold-hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold-soft),
+    transparent
+  );
+}
+
+/* Animated loading ellipsis */
+@keyframes dot-blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+.dot-animated {
+  animation: dot-blink 1.3s infinite ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot-animated {
+    animation: none;
+    opacity: 1;
   }
 }

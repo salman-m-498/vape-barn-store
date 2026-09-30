@@ -1,72 +1,99 @@
 import Image from "next/image";
+import Link from "next/link";
+import { STORE, MAPS_DIRECTIONS_URL } from "@/lib/store";
+import { REVIEW_SUMMARY, GOOGLE_LINK } from "@/lib/reviews";
 
 export function Hero() {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
   return (
-    <section className="relative overflow-hidden border-b border-navy/14">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-12">
-        <div className="flex flex-col justify-center px-5 py-16 sm:px-8 lg:col-span-7 lg:py-24">
-          <p className="mb-10 flex items-center gap-3 font-body text-xs font-semibold uppercase tracking-[0.18em] text-gold">
-            <span className="h-px w-10 bg-gold" aria-hidden />
-            Opening online soon
-          </p>
+    <section className="relative isolate overflow-hidden border-b border-cream/10 bg-navy">
+      <Image
+        src={base + "/store/store1.png"}
+        alt=""
+        aria-hidden
+        fill
+        priority
+        className="object-cover"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/70"
+      />
+      <div aria-hidden className="absolute inset-0 barn-xbrace" />
 
-          <h1 className="font-display text-[5rem] leading-[0.84] tracking-brand text-navy sm:text-[8.5rem] lg:text-[9.5rem]">
-            Vape
-            <br />
-            Properly<span className="text-gold">.</span>
-          </h1>
+      <div className="relative mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28 lg:py-32">
+        
 
-          <div className="mt-10 flex flex-col gap-8 border-t border-navy/14 pt-10 sm:flex-row sm:items-end sm:justify-between">
-            <p className="max-w-md font-body text-base leading-relaxed text-navy/75">
-              Your favourite Barn is opening its doors online. Proper flavour,
-              proper products, proper service. All from the one spot that gets
-              it.
-            </p>
+        <h1 className="font-display text-[5rem] leading-[0.84] tracking-brand text-cream sm:text-[8.5rem] lg:text-[9.5rem]">
+          Vape
+          <br />
+          Properly<span className="text-gold-bright">.</span>
+        </h1>
 
-            <div className="flex shrink-0 flex-col items-start gap-4">
-              <a
-                href="#find-us"
-                className="rounded-sm bg-gold border border-navy/25 px-6 py-3 font-body text-xs font-bold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-tan/50"
-              >
-                In the meantime, visit us in store
-              </a>
-              <div className="flex flex-wrap items-center gap-4">
-                <a
-                  href="#keepme"
-                  className="rounded-sm bg-navy px-6 py-3 font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-navy-soft"
-                >
-                  Keep me posted
-                </a>
-                <a
-                  href="#shop"
-                  className="font-body text-xs font-semibold uppercase tracking-[0.14em] text-navy underline decoration-gold decoration-2 underline-offset-4 transition-colors hover:text-gold"
-                >
-                  A peek at the range
-                </a>
-              </div>
-            </div>
+        <p className="mt-8 flex items-center gap-0.5 font-body text-base font-bold uppercase tracking-[0.18em] text-red-500 sm:text-lg">
+          Online store loading
+          <span className="dot-animated">.</span>
+          <span className="dot-animated" style={{ animationDelay: "0.2s" }}>
+            .
+          </span>
+          <span className="dot-animated" style={{ animationDelay: "0.4s" }}>
+            .
+          </span>
+        </p>
+
+        <p className="mt-3 max-w-md font-body text-lg leading-relaxed text-cream/85">
+          Welcome to Vape Barn! Your friendly neighbourhood vape shop.
+          Disposables, e-liquids, pods and mods — all in stock. Our online store
+          is coming soon. For now, visit us in store or check us out on Mr D.
+        </p>
+
+        <div className="mt-10 flex flex-col gap-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href={STORE.mrdUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm bg-gold px-7 py-3.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-gold-bright"
+            >
+              Order on Mr D
+            </a>
+            <Link
+              href="/shop"
+              className="rounded-sm bg-cream px-7 py-3.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-white"
+            >
+              Browse the catalogue
+            </Link>
+            <a
+              href={MAPS_DIRECTIONS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm bg-gold-bright px-7 py-3.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-gold"
+            >
+              Visit the Barn
+            </a>
           </div>
-        </div>
 
-        <div className="relative flex items-end justify-center lg:col-span-5">
-          <div className="pointer-events-none absolute bottom-0 right-0 h-3/4 w-px bg-navy/10 lg:h-full" />
-          <Image
-            src={base + "/brand/logo.png"}
-            alt=""
-            aria-hidden
-            width={200}
-            height={200}
-            className="pointer-events-none absolute left-1/2 top-6 z-0 hidden h-28 w-28 -translate-x-1/2 opacity-90 sm:block sm:h-36 sm:w-36 lg:h-44 lg:w-44"
-          />
-          <Image
-            src={base + "/brand/cloude_standing.png"}
-            alt="Cloude McPuff"
-            width={512}
-            height={512}
-            priority
-            className="relative z-10 w-auto max-w-[280px] object-contain sm:max-w-[360px] lg:max-w-[440px]"
-          />
+          <div className="flex flex-wrap items-center gap-5">
+            <a
+              href={STORE.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream/80 underline decoration-gold-bright decoration-2 underline-offset-4 transition-colors hover:text-gold-bright"
+            >
+              Follow us on Instagram
+            </a>
+            <a
+              href={GOOGLE_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 font-body text-xs font-semibold text-cream/80 transition-colors hover:text-cream"
+            >
+              <span className="text-gold-bright" aria-hidden>
+                ★★★★★
+              </span>
+              {REVIEW_SUMMARY.rating.toFixed(1)} on Google
+            </a>
+          </div>
         </div>
       </div>
     </section>

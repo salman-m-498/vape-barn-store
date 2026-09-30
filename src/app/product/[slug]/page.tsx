@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { products, getProduct, formatRand } from "@/lib/products";
-import { ProductBuy } from "@/components/product-buy";
+import { STORE, enquireForProduct } from "@/lib/store";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -83,13 +83,37 @@ export default async function ProductPage({
               )}
             </p>
 
-            <div className="mt-8">
-              <ProductBuy slug={product.slug} inStock={product.inStock} />
+            <p className="mt-6 font-body text-sm text-navy/60">
+              {product.inStock ? (
+                <span className="font-semibold text-gold">In stock</span>
+              ) : (
+                <span className="font-semibold text-navy/50">Sold out</span>
+              )}{" "}
+              &middot; Online store coming soon
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a
+                href={enquireForProduct(product.name)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-sm bg-navy px-6 py-3 text-center font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-navy-soft"
+              >
+                Enquire on WhatsApp
+              </a>
+              <a
+                href={STORE.mrdUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-sm border border-navy/25 px-6 py-3 text-center font-body text-xs font-semibold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-tan/50"
+              >
+                Order on Mr D
+              </a>
             </div>
 
             <p className="mt-6 font-body text-sm text-navy/50">
-              Free shipping on orders over R1,000. Products intended for adults
-              only.
+              Products intended for adults only. Not for sale to persons under
+              18.
             </p>
           </div>
         </div>

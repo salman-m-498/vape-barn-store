@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { STORE, whatsappUrl } from "@/lib/store";
 
 export function Footer() {
   return (
@@ -33,7 +34,7 @@ export function Footer() {
               href="/shop"
               className="font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-cream"
             >
-              Shop
+              Catalogue
             </Link>
             <Link
               href="/#about"
@@ -47,6 +48,30 @@ export function Footer() {
             >
               Find us
             </Link>
+            <a
+              href={STORE.mrdUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-cream"
+            >
+              Mr D
+            </a>
+            <a
+              href={whatsappUrl("Hi Vape Barn, I'd like to enquire about your products.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-cream"
+            >
+              WhatsApp
+            </a>
+            <a
+              href={STORE.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-cream"
+            >
+              Instagram
+            </a>
           </nav>
         </div>
 

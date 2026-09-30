@@ -25,7 +25,7 @@ function Stars({ rating }: { rating: number }) {
 
 export function Reviews() {
   return (
-    <section id="reviews" className="border-b border-navy/14 bg-wool">
+    <section id="reviews" className="border-b border-navy/14 bg-cream">
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -61,7 +61,7 @@ export function Reviews() {
         ) : (
           <div className="grid grid-cols-1 gap-px bg-navy/14 sm:grid-cols-2 lg:grid-cols-3">
             {REVIEWS.map((review) => (
-              <blockquote key={review.name} className="flex flex-col bg-cream p-7">
+              <blockquote key={review.name} className="flex flex-col bg-white p-7">
                 <Stars rating={review.rating} />
                 <p className="mt-4 flex-1 font-body text-base leading-relaxed text-navy/80">
                   &ldquo;{review.text}&rdquo;
