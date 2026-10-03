@@ -57,14 +57,17 @@ export type Option = { value: string; label: string };
 
 export type StepDef = {
   message: string;
+  intro?: string;
   multi?: boolean;
   options: Option[];
 };
 
 export const STEP_DEFS: Record<Exclude<StepId, "results">, StepDef> = {
   age: {
+    intro:
+      "Welcome to the Barn. I'm Cloude. Tell me what you like and I'll point you at the right bottle. Takes about a minute.",
     message:
-      "Welcome to the Barn. I'm Cloude. Tell me what you like and I'll point you at the right bottle. Takes about a minute.\n\nOne thing first: this is for adults who already use nicotine. Are you 18 or older?",
+      "One thing first: this is for adults who already use nicotine. Are you 18 or older?",
     options: [
       { value: "yes", label: "Yes, I'm 18+" },
       { value: "no", label: "No" },

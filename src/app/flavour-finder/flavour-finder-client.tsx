@@ -128,7 +128,7 @@ function CloudeAvatar({ base, className }: { base: string; className?: string })
         alt="Cloude McPuff"
         width={194}
         height={194}
-        className="relative h-48 w-auto object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.4)] sm:h-44 ml-4"
+        className="relative h-24 w-auto object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.4)] sm:h-44"
       />
     </div>
   );
@@ -475,14 +475,27 @@ export function FlavourFinderClient() {
 
         <div className="flex items-start gap-3 sm:gap-6">
           <CloudeAvatar base={base} />
-          <div className="relative flex-1 rounded-2xl border border-navy/10 bg-cream px-6 py-5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-            <span
-              aria-hidden
-              className="absolute -left-2 top-7 h-4 w-4 rotate-45 border-b border-l border-navy/10 bg-cream"
-            />
-            <p className="whitespace-pre-line font-body text-lg leading-relaxed text-navy">
-              {def.message}
-            </p>
+          <div className="flex min-w-0 flex-1 flex-col gap-3">
+            {def.intro && (
+              <div className="relative self-start rounded-2xl border border-navy/10 bg-cream px-4 py-3 shadow-[0_6px_24px_rgba(0,0,0,0.25)] sm:px-5 sm:py-4">
+                <span
+                  aria-hidden
+                  className="absolute -left-2 top-5 h-4 w-4 rotate-45 border-b border-l border-navy/10 bg-cream"
+                />
+                <p className="font-body text-sm leading-relaxed text-navy/80 sm:text-base">
+                  {def.intro}
+                </p>
+              </div>
+            )}
+            <div className="relative self-start rounded-2xl border border-navy/10 bg-cream px-4 py-4 shadow-[0_10px_40px_rgba(0,0,0,0.35)] sm:px-6 sm:py-5">
+              <span
+                aria-hidden
+                className="absolute -left-2 top-6 h-4 w-4 rotate-45 border-b border-l border-navy/10 bg-cream"
+              />
+              <p className="whitespace-pre-line font-body text-base leading-relaxed text-navy sm:text-lg">
+                {def.message}
+              </p>
+            </div>
           </div>
         </div>
 
