@@ -7,9 +7,9 @@ import { STORE } from "@/lib/store";
 
 const NAV = [
   { label: "Catalogue", href: "/shop" },
-  { label: "Flavour Finder", href: "/flavour-finder", cta: true },
   { label: "Find us", href: "/#find-us" },
   { label: "About", href: "/#about" },
+    { label: "Flavour Finder", href: "/flavour-finder", cta: true },
 ];
 
 export function Header() {

@@ -43,20 +43,12 @@ export function Hero() {
 
         <p className="mt-3 max-w-md font-body text-lg leading-relaxed text-cream/85">
           Welcome to Vape Barn! Your friendly neighbourhood vape shop.
-          Disposables, e-liquids, pods and mods — all in stock. Our online store
+          Disposables, e-liquids, pods and mods, all in stock. Our online store
           is coming soon. For now, visit us in store or check us out on Mr D.
         </p>
 
         <div className="mt-10 flex flex-col gap-4">
           <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={STORE.mrdUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-sm bg-gold px-7 py-3.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-gold-bright"
-            >
-              Order on Mr D
-            </a>
             <Link
               href="/shop"
               className="rounded-sm bg-cream px-7 py-3.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-white"
@@ -70,6 +62,14 @@ export function Hero() {
               className="rounded-sm bg-gold-bright px-7 py-3.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-gold"
             >
               Visit the Barn
+            </a>
+            <a
+              href={STORE.mrdUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm bg-gold px-7 py-3.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-navy transition-colors hover:bg-gold-bright"
+            >
+              Order on Mr D
             </a>
           </div>
 
