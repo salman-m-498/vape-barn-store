@@ -37,6 +37,12 @@ export function Footer() {
               Catalogue
             </Link>
             <Link
+              href="/flavour-finder"
+              className="font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-cream"
+            >
+              Flavour Finder
+            </Link>
+            <Link
               href="/#about"
               className="font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-cream"
             >

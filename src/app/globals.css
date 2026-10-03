@@ -10,6 +10,7 @@
   --color-gold: #ab7a2b;
   --color-gold-soft: #c5a170;
   --color-gold-bright: #d4a64a;
+  --color-pop: #63a3ff;
   --color-brown: #4a3b2a;
 
   --font-display: var(--font-bebas), sans-serif;
@@ -32,8 +33,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-* {
-  border-color: color-mix(in srgb, var(--color-navy) 14%, transparent);
+@layer base {
+  * {
+    border-color: color-mix(in srgb, var(--color-navy) 14%, transparent);
+  }
 }
 
 ::selection {

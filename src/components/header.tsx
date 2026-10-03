@@ -7,6 +7,7 @@ import { STORE } from "@/lib/store";
 
 const NAV = [
   { label: "Catalogue", href: "/shop" },
+  { label: "Flavour Finder", href: "/flavour-finder", cta: true },
   { label: "Find us", href: "/#find-us" },
   { label: "About", href: "/#about" },
 ];
@@ -45,7 +46,11 @@ export function Header() {
             <Link
               key={item.label}
               href={item.href}
-              className="font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-cream"
+              className={
+                item.cta
+                  ? "rounded-sm border border-gold px-4 py-2 font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-bright transition-colors hover:bg-gold hover:text-navy"
+                  : "font-body text-xs font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-cream"
+              }
             >
               {item.label}
             </Link>
@@ -119,7 +124,11 @@ export function Header() {
                 key={item.label}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-cream/10 py-3 font-body text-sm font-semibold uppercase tracking-[0.14em] text-cream/80 transition-colors hover:text-cream"
+                className={
+                  item.cta
+                    ? "rounded-sm border border-gold px-4 py-3 text-center font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-bright transition-colors hover:bg-gold hover:text-navy"
+                    : "border-b border-cream/10 py-3 font-body text-sm font-semibold uppercase tracking-[0.14em] text-cream/80 transition-colors hover:text-cream"
+                }
               >
                 {item.label}
               </Link>

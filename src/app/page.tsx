@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero";
+import { PromoBanner } from "@/components/promo-banner";
 import { BrandsTicker } from "@/components/brands-ticker";
 import { ProductTeaser } from "@/components/product-teaser";
 import { BrandStatement } from "@/components/brand-statement";
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <PromoBanner />
       <BrandsTicker />
       <ProductTeaser />
       <BrandStatement />

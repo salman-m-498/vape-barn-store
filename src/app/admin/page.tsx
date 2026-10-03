@@ -3,6 +3,13 @@
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { products as initialProducts, CATEGORIES, type Category, type Product } from "@/lib/products";
+import {
+  promoBannersConfig,
+  PROMO_BACKGROUND_DEFAULT,
+  resolveAssetSrc,
+  type PromoBanner,
+  type PromoBannersConfig,
+} from "@/lib/promo-banners";
 import { ADMIN_PASSCODE } from "@/lib/store";
 import {
   productsToCsv,
@@ -27,6 +34,65 @@ function newProduct(): Product {
 const inputClass =
   "w-full rounded-sm border border-navy/20 bg-wool px-2 py-1.5 font-body text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none";
 
+function promoInset(config: Pick<PromoBannersConfig, "canvas" | "midground">) {
+  return {
+    x: ((config.canvas.width - config.midground.width) / 2 / config.canvas.width) * 100,
+    y: ((config.canvas.height - config.midground.height) / 2 / config.canvas.height) * 100,
+  };
+}
+
+function PromoPreview({
+  config,
+  banner,
+}: {
+  config: PromoBannersConfig;
+  banner: PromoBanner;
+}) {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const inset = promoInset(config);
+  return (
+    <div
+      className="relative w-full overflow-hidden bg-navy"
+      style={{ aspectRatio: `${config.canvas.width} / ${config.canvas.height}` }}
+    >
+      {config.background && (
+        <Image
+          src={resolveAssetSrc(base, config.background)}
+          alt=""
+          fill
+          className="object-cover"
+        />
+      )}
+      {banner.midground && (
+        <div
+          className="absolute"
+          style={{
+            left: `${inset.x}%`,
+            right: `${inset.x}%`,
+            top: `${inset.y}%`,
+            bottom: `${inset.y}%`,
+          }}
+        >
+          <Image
+            src={resolveAssetSrc(base, banner.midground)}
+            alt=""
+            fill
+            className="object-contain"
+          />
+        </div>
+      )}
+      {banner.foreground && (
+        <Image
+          src={resolveAssetSrc(base, banner.foreground)}
+          alt=""
+          fill
+          className="object-contain"
+        />
+      )}
+    </div>
+  );
+}
+
 export default function AdminPage() {
   const [unlocked, setUnlocked] = useState(false);
   const [passcode, setPasscode] = useState("");
@@ -38,6 +104,8 @@ export default function AdminPage() {
   const [importText, setImportText] = useState("");
   const [importOpen, setImportOpen] = useState(false);
   const [parsed, setParsed] = useState<{ products: Product[]; errors: string[] } | null>(null);
+
+  const [promo, setPromo] = useState<PromoBannersConfig>(promoBannersConfig);
 
   function unlock(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -73,6 +141,42 @@ export default function AdminPage() {
       ...prev,
       { ...newProduct(), slug: `new-${Date.now()}` },
     ]);
+  }
+
+  function updatePromoBackground(value: string) {
+    setPromo((prev) => ({ ...prev, background: value }));
+  }
+
+  function updatePromoBanner(id: string, patch: Partial<PromoBanner>) {
+    setPromo((prev) => ({
+      ...prev,
+      banners: prev.banners.map((b) => (b.id === id ? { ...b, ...patch } : b)),
+    }));
+  }
+
+  function addPromoBanner() {
+    setPromo((prev) => ({
+      ...prev,
+      banners: [
+        ...prev.banners,
+        { id: `banner-${Date.now()}`, title: "", midground: "", foreground: "" },
+      ],
+    }));
+  }
+
+  function removePromoBanner(id: string) {
+    setPromo((prev) => ({
+      ...prev,
+      banners: prev.banners.filter((b) => b.id !== id),
+    }));
+  }
+
+  function downloadPromoJson() {
+    downloadFile(
+      "promo-banners.json",
+      JSON.stringify(promo, null, 2) + "\n",
+      "application/json",
+    );
   }
 
   function downloadCsv() {
@@ -433,6 +537,114 @@ export default function AdminPage() {
           </tbody>
         </table>
       </div>
+
+      <section className="mt-12 border-t border-navy/14 pt-10">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="mb-4 font-body text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+              Promo banners
+            </p>
+            <h2 className="font-display text-4xl leading-[0.9] tracking-brand text-navy">
+              Homepage promo carousel
+            </h2>
+            <p className="mt-3 font-body text-sm text-navy/60">
+              Layer order: shared background &rarr; mid-ground product image
+              &rarr; foreground overlay. Download the JSON and commit it to
+              publish.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={downloadPromoJson}
+              className="rounded-sm border border-navy/25 px-4 py-2 font-body text-xs font-semibold uppercase tracking-[0.12em] text-navy transition-colors hover:bg-tan/50"
+            >
+              Download banners JSON
+            </button>
+            <button
+              onClick={addPromoBanner}
+              className="rounded-sm bg-gold px-4 py-2 font-body text-xs font-bold uppercase tracking-[0.12em] text-cream transition-colors hover:bg-tan/50"
+            >
+              Add banner
+            </button>
+          </div>
+        </div>
+
+        <div className="mb-6 grid gap-4 sm:grid-cols-2">
+          <label className="block">
+            <span className="mb-1 block font-body text-xs font-semibold uppercase tracking-[0.12em] text-navy/70">
+              Shared background image
+            </span>
+            <input
+              value={promo.background}
+              onChange={(e) => updatePromoBackground(e.target.value)}
+              placeholder={PROMO_BACKGROUND_DEFAULT}
+              className={inputClass + " font-mono text-xs"}
+            />
+          </label>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          {promo.banners.map((banner) => (
+            <div
+              key={banner.id}
+              className="flex flex-col rounded-sm border border-navy/14 bg-wool p-4"
+            >
+              <PromoPreview config={promo} banner={banner} />
+
+              <div className="mt-4 flex flex-col gap-3">
+                <label className="block">
+                  <span className="mb-1 block font-body text-xs font-semibold uppercase tracking-[0.12em] text-navy/70">
+                    Title
+                  </span>
+                  <input
+                    value={banner.title}
+                    onChange={(e) =>
+                      updatePromoBanner(banner.id, { title: e.target.value })
+                    }
+                    className={inputClass}
+                  />
+                </label>
+                <label className="block">
+                  <span className="mb-1 block font-body text-xs font-semibold uppercase tracking-[0.12em] text-navy/70">
+                    Mid-ground image
+                  </span>
+                  <input
+                    value={banner.midground}
+                    onChange={(e) =>
+                      updatePromoBanner(banner.id, { midground: e.target.value })
+                    }
+                    placeholder="/Promo Banner/your-product.png"
+                    className={inputClass + " font-mono text-xs"}
+                  />
+                </label>
+                <label className="block">
+                  <span className="mb-1 block font-body text-xs font-semibold uppercase tracking-[0.12em] text-navy/70">
+                    Foreground image
+                  </span>
+                  <input
+                    value={banner.foreground}
+                    onChange={(e) =>
+                      updatePromoBanner(banner.id, {
+                        foreground: e.target.value,
+                      })
+                    }
+                    className={inputClass + " font-mono text-xs"}
+                  />
+                </label>
+              </div>
+
+              <div className="mt-4 flex justify-end">
+                <button
+                  onClick={() => removePromoBanner(banner.id)}
+                  className="font-body text-xs text-navy/40 transition-colors hover:text-red-700"
+                >
+                  Remove banner
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

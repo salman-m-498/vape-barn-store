@@ -1,0 +1,25 @@
+{
+  "background": "/Promo Banner/banner-bg.png",
+  "canvas": { "width": 3280, "height": 1712 },
+  "midground": { "width": 2781, "height": 1451 },
+  "banners": [
+    {
+      "id": "new-stock-alert",
+      "title": "New stock alert",
+      "midground": "/Promo Banner/caliburnair.png",
+      "foreground": "/Promo Banner/new-stock-alert.png"
+    },
+    {
+      "id": "fast-sellers",
+      "title": "Fast sellers",
+      "midground": "/Promo Banner/go-lite.png",
+      "foreground": "/Promo Banner/fast-sellers.png"
+    },
+    {
+      "id": "cloudes-top-picks",
+      "title": "Cloude's top pick",
+      "midground": "/Promo Banner/legend.png",
+      "foreground": "/Promo Banner/cloudes-top-picks.png"
+    }
+  ]
+}
