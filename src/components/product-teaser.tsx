@@ -26,6 +26,7 @@ const RANGE = [
     slug: "disposables",
     blurb: "No fuss, big flavour.",
     image: "/cards/disposibles.png",
+    filter: "brightness(1.1) saturate(0.95)",
     icon: "M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm2 13h6M9 8h6",
   },
   {
@@ -33,6 +34,7 @@ const RANGE = [
     slug: "e-liquids",
     blurb: "Proper flavour, mixed right.",
     image: "/cards/eliquid.png",
+    filter: "brightness(0.88) saturate(1.05) hue-rotate(2deg)",
     icon: "M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z",
   },
   {
@@ -40,6 +42,7 @@ const RANGE = [
     slug: "devices",
     blurb: "Kits, pods and mods.",
     image: "/cards/devices.png",
+    filter: "brightness(1.25) saturate(0.95) hue-rotate(-4deg)",
     icon: "M8 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 10h2",
   },
   {
@@ -47,6 +50,7 @@ const RANGE = [
     slug: "coils-pods",
     blurb: "Keep it running.",
     image: "/cards/coils.png",
+    filter: "brightness(1.4) saturate(0.88) hue-rotate(-8deg)",
     icon: "M12 12m-8 0a8 8 0 1 0 16 0a8 8 0 1 0-16 0M12 8v8",
   },
   {
@@ -54,6 +58,7 @@ const RANGE = [
     slug: "nic-pouches",
     blurb: "Discreet and fresh.",
     image: "/cards/pouches.png",
+    filter: "brightness(1.2) saturate(0.95) hue-rotate(-2deg)",
     icon: "M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM4 10h16",
   },
 ];
@@ -94,6 +99,7 @@ export function ProductTeaser() {
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
                 className="object-cover"
+                style={{ filter: item.filter }}
               />
               <div
                 aria-hidden

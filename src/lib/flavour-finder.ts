@@ -270,9 +270,9 @@ type EliqidTags = {
 };
 
 const FRUIT_KEYWORDS: Record<string, string[]> = {
-  citrus: ["lemon", "lime", "orange", "citrus"],
-  berry: ["berry", "blueberry", "raspberry", "strawberry", "cherry", "blackberry"],
-  tropical: ["mango", "pineapple", "passionfruit", "passion fruit", "guava", "papaya", "cactus"],
+  citrus: ["lemon", "lime", "orange", "citrus", "citronnade"],
+  berry: ["berry", "blueberry", "raspberry", "strawberry", "cherry", "blackberry", "cranberry", "blackcurrant", "razz"],
+  tropical: ["mango", "pineapple", "passionfruit", "passion fruit", "guava", "papaya", "cactus", "kiwi", "litchi", "lychee", "dragonfruit", "coconut"],
   stone: ["apricot", "peach", "nectarine", "plum"],
   melon: ["melon", "watermelon"],
   apple: ["apple", "pear"],
@@ -281,10 +281,10 @@ const FRUIT_KEYWORDS: Record<string, string[]> = {
 };
 
 const DESSERT_KEYWORDS: Record<string, string[]> = {
-  custard: ["custard", "cream", "cheesecake", "pudding", "milk"],
-  bakery: ["cookie", "biscuit", "cake", "donut", "doughnut", "bakery", "swiss roll", "krispy", "treats", "malva"],
+  custard: ["custard", "cream", "cheesecake", "pudding", "milk", "vanilla"],
+  bakery: ["cookie", "biscuit", "cake", "donut", "doughnut", "bakery", "swiss roll", "krispy", "treats", "malva", "biscoff"],
   icecream: ["ice cream", "icecream", "gelato"],
-  candy: ["candy", "gummies", "gummy", "lollipop", "sweets", "cola", "pop"],
+  candy: ["candy", "gummies", "gummy", "lollipop", "sweets", "cola", "pop", "bubblegum", "cotton candy", "slush"],
   "choc-caramel": ["chocolate", "caramel", "butterscotch", "hazelnut", "almond", "peanut", "nut"],
   cereal: ["cereal", "granola", "oats"],
 };
@@ -358,26 +358,55 @@ function scoreProduct(tags: EliqidTags, answers: Answers): number {
   let score = 0;
   const f = answers.family;
 
-  if (f === "fruit" && tags.family === "fruit") score += 3;
-  if (f === "dessert" && tags.family === "dessert") score += 3;
-  if (f === "ice" && tags.family === "ice") score += 3;
-  if (f === "tobacco" && tags.family === "tobacco") score += 3;
+  if (f === "surprise") {
+    // no family preference
+  } else if (f === tags.family) {
+    score += 2;
+  } else {
+    score -= 4;
+  }
 
   if (f === "fruit") {
-    for (const note of answers.fruitNotes) if (tags.fruits.includes(note)) score += 2;
-    if (answers.fruitMood === "sour" && tags.fruits.includes("sour")) score += 1;
-    if (answers.fruitMood === "tart" && tags.fruits.includes("sour")) score += 1;
+    for (const note of answers.fruitNotes) if (tags.fruits.includes(note)) score += 3;
+    if (answers.fruitMood === "sour" && tags.fruits.includes("sour")) score += 2;
+    else if (answers.fruitMood === "tart" && tags.fruits.includes("sour")) score += 1;
   }
   if (f === "dessert") {
-    for (const note of answers.dessertNotes) if (tags.dessert.includes(note)) score += 2;
+    for (const note of answers.dessertNotes) if (tags.dessert.includes(note)) score += 3;
   }
-  if (f === "tobacco" && answers.tobaccoStyle && tags.tobacco.includes(answers.tobaccoStyle)) score += 2;
+  if (f === "tobacco") {
+    if (answers.tobaccoStyle && tags.tobacco.includes(answers.tobaccoStyle)) score += 3;
+  }
+  if (f === "ice") {
+    if (
+      (answers.iceStyle === "menthol" || answers.iceStyle === "spearmint") &&
+      tags.tobacco.includes("mint")
+    ) {
+      score += 3;
+    }
+  }
 
   const wantIce: Record<IceLevel, number> = { none: 0, little: 1, lot: 2 };
   const iceTarget = answers.ice ? wantIce[answers.ice] : 1;
-  score += Math.max(0, 2 - Math.abs(tags.iceLevel - iceTarget));
+  const iceDiff = Math.abs(tags.iceLevel - iceTarget);
+  if (iceDiff === 0) score += 2;
+  else if (iceDiff === 1) score += 1;
+  else score -= 2;
 
-  if (answers.sweet && tags.sweetness === answers.sweet) score += 2;
+  if (answers.sweet) {
+    const order: Record<Sweetness, number> = { light: 0, medium: 1, very: 2 };
+    const d = Math.abs(order[tags.sweetness] - order[answers.sweet]);
+    if (d === 0) score += 2;
+    else if (d === 1) score += 1;
+  }
+
+  if (tags.strengthMg !== undefined) {
+    if (answers.nicotine === "lot" && tags.strengthMg >= 20) score += 1;
+    if (answers.nicotine === "little" && tags.strengthMg < 20) score += 1;
+  }
+  if (answers.experience === "new" && tags.strengthMg !== undefined && tags.strengthMg >= 50) {
+    score -= 1;
+  }
 
   return score;
 }
@@ -403,7 +432,48 @@ export type MatchResults = {
   wildcard: Match | null;
 };
 
+function fnv1a(str: string): number {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h >>> 0;
+}
+
+function answerSignature(answers: Answers): string {
+  return [
+    answers.experience ?? "",
+    answers.family ?? "",
+    answers.fruitNotes.slice().sort().join(","),
+    answers.fruitMood ?? "",
+    answers.dessertNotes.slice().sort().join(","),
+    answers.tobaccoStyle ?? "",
+    answers.iceStyle ?? "",
+    answers.ice ?? "",
+    answers.sweet ?? "",
+    answers.device ?? "",
+    answers.nicotine ?? "",
+  ].join("|");
+}
+
+function pickDistinct(
+  list: Match[],
+  used: Set<string>,
+  predicate: (m: Match) => boolean,
+): Match | null {
+  for (const m of list) {
+    if (used.has(m.product.slug)) continue;
+    if (predicate(m)) {
+      used.add(m.product.slug);
+      return m;
+    }
+  }
+  return null;
+}
+
 export function matchProducts(answers: Answers, products: Product[]): MatchResults {
+  const sig = answerSignature(answers);
   const eliqids = products.filter((p) => p.category === "E-liquids" && p.inStock);
   const filter = deviceFilter(answers.device);
 
@@ -411,12 +481,10 @@ export function matchProducts(answers: Answers, products: Product[]): MatchResul
     .map((product) => ({ product, tags: tagEliqid(product), score: 0 }))
     .filter((m) => filter === "any" || m.tags.device === filter)
     .map((m) => ({ ...m, score: scoreProduct(m.tags, answers) }))
-    .sort((a, b) => b.score - a.score);
-
-  const pick = scored[0] ?? null;
-  const second = scored[1] ?? null;
-  const wildcard =
-    scored.find((m) => pick && m.tags.family !== pick.tags.family) ?? scored[2] ?? null;
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return fnv1a(sig + "::" + a.product.slug) - fnv1a(sig + "::" + b.product.slug);
+    });
 
   const hotSellers = HOT_SELLER_SLUGS.map((slug) =>
     products.find((p) => p.slug === slug && p.inStock),
@@ -424,9 +492,19 @@ export function matchProducts(answers: Answers, products: Product[]): MatchResul
     .filter((p): p is Product => Boolean(p))
     .map((p): Match => ({ product: p, tags: tagEliqid(p), score: 0 }));
 
+  const rotate = fnv1a(sig) % Math.max(1, hotSellers.length);
+  const hot = [...hotSellers.slice(rotate), ...hotSellers.slice(0, rotate)];
+
+  const used = new Set<string>();
+  const pick = pickDistinct(scored, used, () => true);
+  const second = pickDistinct(scored, used, () => true);
+  const wildcard =
+    pickDistinct(scored, used, (m) => !!pick && m.tags.family !== pick.tags.family) ??
+    pickDistinct(scored, used, () => true);
+
   return {
-    pick: pick ?? hotSellers[0] ?? null,
-    second: second ?? hotSellers[1] ?? null,
-    wildcard: wildcard ?? hotSellers[2] ?? null,
+    pick: pick ?? pickDistinct(hot, used, () => true),
+    second: second ?? pickDistinct(hot, used, () => true),
+    wildcard: wildcard ?? pickDistinct(hot, used, () => true),
   };
 }
