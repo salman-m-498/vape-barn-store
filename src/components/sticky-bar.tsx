@@ -1,4 +1,7 @@
-import { STORE, MAPS_DIRECTIONS_URL } from "@/lib/store";
+import { STORE, MAPS_DIRECTIONS_URL, WHATSAPP_URL } from "@/lib/store";
+
+const actionClass =
+  "flex flex-1 items-center justify-center rounded-sm border border-cream/30 px-3 py-3 text-center font-body text-[11px] font-bold uppercase tracking-[0.1em] text-cream transition-colors hover:bg-cream/10";
 
 export function StickyBar() {
   return (
@@ -8,29 +11,29 @@ export function StickyBar() {
     >
       <div className="mx-auto flex max-w-md items-stretch gap-2">
         <a
-          href={STORE.mrdUrl}
+          href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex flex-1 items-center justify-center rounded-sm bg-gold px-3 py-3 text-center font-body text-[11px] font-bold uppercase tracking-[0.1em] text-navy transition-colors hover:bg-gold-bright"
+          aria-label="Message Vape Barn on WhatsApp"
+          className={actionClass}
         >
-          Order on Mr D
+          WhatsApp
         </a>
         <a
           href={MAPS_DIRECTIONS_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex flex-1 items-center justify-center rounded-sm border border-cream/30 px-3 py-3 text-center font-body text-[11px] font-bold uppercase tracking-[0.1em] text-cream transition-colors hover:bg-cream/10"
+          className={actionClass}
         >
           Visit
         </a>
         <a
-          href={STORE.instagramUrl}
+          href={STORE.mrdUrl}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Follow Vape Barn on Instagram"
-          className="flex flex-1 items-center justify-center rounded-sm border border-cream/30 px-3 py-3 text-center font-body text-[11px] font-bold uppercase tracking-[0.1em] text-cream transition-colors hover:bg-cream/10"
+          className={actionClass}
         >
-          Instagram
+          Order on Mr&nbsp;D
         </a>
       </div>
     </nav>
