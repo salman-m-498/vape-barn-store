@@ -18,8 +18,9 @@ export default async function ProductPage({
   if (!product) notFound();
 
   return (
-    <main>
-      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+    <main className="relative overflow-hidden">
+      <div aria-hidden className="pointer-events-none absolute inset-0 barn-xbrace-gold" />
+      <div className="relative mx-auto max-w-6xl px-5 py-10 sm:px-8">
         <nav aria-label="Breadcrumb" className="mb-8">
           <ol className="flex items-center gap-2 font-body text-xs text-navy/50">
             <li>

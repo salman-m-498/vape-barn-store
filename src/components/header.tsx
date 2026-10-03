@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { STORE } from "@/lib/store";
+import { STORE, WHATSAPP_URL } from "@/lib/store";
 
 const NAV = [
   { label: "Catalogue", href: "/shop" },
@@ -58,6 +58,27 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Vape Barn on WhatsApp"
+            className="hidden h-9 w-9 items-center justify-center rounded-sm transition-colors hover:bg-navy-soft sm:flex"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              className="text-cream"
+              aria-hidden
+            >
+              <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" />
+              <path d="M8.5 9.5c.5 3 2.5 5 5.5 5.5l1-1.2 1.8.6c-.3 1.4-1.5 2-2.6 2.2-2 .3-4.6-.8-6.2-2.4S6.3 10 6.6 8c.2-1.1.8-2.3 2.2-2.6l.6 1.8-1.2 1Z" />
+            </svg>
+          </a>
           <a
             href={STORE.instagramUrl}
             target="_blank"

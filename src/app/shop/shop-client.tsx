@@ -58,10 +58,11 @@ export function ShopClient() {
   }
 
   return (
-    <main>
-      <section className="border-b border-navy/14">
+    <main className="relative overflow-hidden">
+      <div aria-hidden className="pointer-events-none absolute inset-0 barn-xbrace-gold" />
+      <section className="relative border-b border-navy/14">
         <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
-          <p className="mb-6 font-body text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+          <p className="mb-6 font-body text-m font-semibold uppercase tracking-[0.18em] text-gold">
             Online store coming soon
           </p>
           <h1 className="font-display text-5xl leading-[0.9] tracking-brand text-navy sm:text-7xl">
@@ -74,7 +75,7 @@ export function ShopClient() {
         </div>
       </section>
 
-      <section>
+      <section className="relative">
         <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filter by category">

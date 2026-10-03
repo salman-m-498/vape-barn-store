@@ -31,7 +31,7 @@ export function Hero() {
         </h1>
 
         <p className="mt-8 flex items-center gap-0.5 font-body text-base font-bold uppercase tracking-[0.18em] text-red-500 sm:text-lg">
-          Online store loading
+          Online store coming soon
           <span className="dot-animated">.</span>
           <span className="dot-animated" style={{ animationDelay: "0.2s" }}>
             .
